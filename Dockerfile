@@ -9,7 +9,6 @@ COPY package*.json ./
 
 # If you are building your code for production
 # RUN npm install --only=production
-RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
 RUN npm install
 
 COPY . .
