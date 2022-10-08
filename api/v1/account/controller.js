@@ -20,3 +20,23 @@ exports.showAccount = async function (req, res) {
         return utils.returnErrorFunction(res, 'error showAccount...', e);
     }
 };
+
+exports.findAccount = async function (req, res) {
+    try {
+        let id = req.body.id;
+        let data = await AdrAccount.findOne({
+            raw: true,
+            where: {
+                id: id
+            }
+        });
+        if(!data){
+            throw '10001'
+        }
+        logger.debug('sukses...', JSON.stringify(data));
+        return res.json(rsmg(data));
+    } catch (e) {
+        logger.error('error showAccount...', e);
+        return utils.returnErrorFunction(res, 'error showAccount...', e);
+    }
+};
