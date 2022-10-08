@@ -45,10 +45,6 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
   host: settings.hostname,
   port: settings.port,
   dialect: 'mysql',
-  dialectOptions: {
-    ssl: true,
-    decimalNumbers: true
-  },
   pool: {
     max: 5,
     min: 0,
