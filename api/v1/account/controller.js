@@ -10,10 +10,12 @@ const AdrAccount = require('../../../model/adr_account');
 
 exports.showAccount = async function (req, res) {
     try {
+        let evvPort = process.env.PORT
         let data = await AdrAccount.findAll({
             raw: true
         });
         logger.debug('sukses...', JSON.stringify(data));
+        logger.debug('evvPort', evvPort)
         return res.json(rsmg(data));
     } catch (e) {
         logger.error('error showAccount...', e);
