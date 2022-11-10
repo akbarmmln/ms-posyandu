@@ -181,7 +181,7 @@ exports.cobaovo = async function (req, res) {
     try {
         let invoice_number = req.body.invoice_number;
         let amount = req.body.amount;
-        let ovo_id = ovo_id;
+        let ovo_id = req.body.ovo_id;
 
         let request_timestamp = new Date().toISOString().slice(0, 19) + "Z";
         let request_id = uuidv4();
