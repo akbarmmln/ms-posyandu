@@ -56,7 +56,7 @@ exports.cobavabca = async function (req, res) {
         let endpoint = '/bca-virtual-account/v2/payment-code';
         let body = {
             "order": {
-                "invoice_number": "INV-20210124-0005",
+                "invoice_number": "INV-20221110-0002",
                 "amount": 10000
             },
             "virtual_account_info": {
@@ -179,6 +179,10 @@ exports.cobacheckout = async function (req, res) {
 
 exports.cobaovo = async function (req, res) {
     try {
+        let invoice_number = req.body.invoice_number;
+        let amount = req.body.invoice_number;
+        let ovo_id = ovo_id;
+
         let request_timestamp = new Date().toISOString().slice(0, 19) + "Z";
         let request_id = uuidv4();
         let client_id = 'BRN-0218-1667893711927';
@@ -191,11 +195,11 @@ exports.cobaovo = async function (req, res) {
                 "id": client_id
             },
             "order": {
-                "invoice_number": "INV-20221110-0001",
-                "amount": 20000
+                "invoice_number": invoice_number,
+                "amount": parseInt(amount)
             },
             "ovo_info": {
-                "ovo_id": "081211111111"
+                "ovo_id": ovo_id
             },
             "security": {
                 "check_sum": ''
@@ -206,7 +210,7 @@ exports.cobaovo = async function (req, res) {
         body.security.check_sum = check_sum;
 
         let signature = await createSignature(request_id, client_id, client_secret, request_timestamp, endpoint, body)
-        let responVA = await rp({
+        let allPayload = {
             method: 'POST',
             uri: url + endpoint,
             headers: {
@@ -218,7 +222,10 @@ exports.cobaovo = async function (req, res) {
             },
             body: body,
             json: true
-        })
+        }
+        logger.debug('payload send to ovo...', JSON.stringify(allPayload))
+        let responVA = await rp(allPayload)
+        logger.debug('payload respon from ovo...', JSON.stringify(responVA))
         return res.status(200).json(rsmg(responVA))
     } catch (e) {
         logger.error('error coba...', e);
