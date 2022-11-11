@@ -1,25 +1,36 @@
 'use strict';
 
 const rsmg = require('../../../response/rs');
-
 const utils = require('../../../utils/utils');
 const moment = require('moment');
 const uuidv4 = require('uuid/v4');
 const logger = require('../../../config/logger');
-const AdrAccount = require('../../../model/adr_account');
+const AdrAccount = require('../../../model/adr_account')
+const AdrAccountNewModel = require('../../../model/adr_account_v2')
 const CryptoJS = require("crypto-js");
 const crypto = require('crypto')
 const rp = require('request-promise');
 
 exports.showAccount = async function (req, res) {
     try {
-        let evvPort = process.env.PORT
         let data = await AdrAccount.findAll({
             raw: true
         });
         logger.debug('sukses...', JSON.stringify(data));
-        logger.debug('evvPort', evvPort)
         return res.status(200).json(rsmg(data));
+    } catch (e) {
+        logger.error('error showAccount...', e);
+        return utils.returnErrorFunction(res, 'error showAccount...', e);
+    }
+};
+
+exports.showAccountNewModels = async function (req, res) {
+    try {
+        const newModel = AdrAccountNewModel.registerModel('adr_account');
+        let aa = await newModel.findAll({
+            raw: true
+        })
+        return res.status(200).json(rsmg(aa));
     } catch (e) {
         logger.error('error showAccount...', e);
         return utils.returnErrorFunction(res, 'error showAccount...', e);
@@ -243,4 +254,14 @@ async function createSignature(request_id, client_id, client_secret, request_tim
         + "Digest:" + bodySha256;
     let signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(signatureComponents, client_secret));
     return signature;
+}
+
+async function randomInvoice(length) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
