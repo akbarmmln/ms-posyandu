@@ -10,6 +10,9 @@ const AdrAccountNewModel = require('../../../model/adr_account_v2')
 const CryptoJS = require("crypto-js");
 const crypto = require('crypto')
 const rp = require('request-promise');
+const pug = require('pug');
+const compiledResetAccountMailTemplate = pug.compileFile(__dirname + '/templates/notif.pug');
+const mailer = require('../../../config/mailer');
 
 exports.showAccount = async function (req, res) {
     try {
@@ -54,6 +57,24 @@ exports.findAccount = async function (req, res) {
     } catch (e) {
         logger.error('error showAccount...', e);
         return utils.returnErrorFunction(res, 'error showAccount...', e);
+    }
+};
+
+exports.sendEmail = async function (req, res) {
+    try {
+        let mailObject = {
+            to: ['akbarmmln@gmail.com'],
+            subject: 'Ini hanyalah percobaan',
+            html: compiledResetAccountMailTemplate({})
+        }
+
+        await mailer.sendGridMailer(mailObject);
+        logger.debug('Success send email with new reset credentials');
+
+        return res.status(200).json(rsmg());
+    } catch (e) {
+        logger.error('failed to send email...', e);
+        return utils.returnErrorFunction(res, 'failed to send email...', e);
     }
 };
 
