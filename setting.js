@@ -1,9 +1,9 @@
 module.exports = {
     mysql: {
-        username: 'iampsu',
-        password: 'CYGr%@dOYHc0',
-        hostname: '103.152.118.253',
-        port: '3306',
-        dbname: '4yur-dev'
+        hostname: process.env.MYSQL_HOSTNAME,
+        username: process.env.MYSQL_USERNAME,
+        password: process.env.MYSQL_PASSWORD,
+        port: process.env.MYSQL_PORT,
+        dbname: process.env.MYSQL_DATABASE,
     }
 };
