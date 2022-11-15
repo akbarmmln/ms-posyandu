@@ -15,6 +15,7 @@ RUN wget -qO- "https://github.com/dustinblackman/phantomized/releases/download/2
 RUN apk add --update ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family && rm -rf /var/cache/apk/*
 
 RUN npm install
+RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
 
 COPY . .
 
