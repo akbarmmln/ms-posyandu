@@ -12,6 +12,8 @@ RUN wget -qO- "https://github.com/dustinblackman/phantomized/releases/download/2
     && npm config set user 0 \
     && npm install -g phantomjs-prebuilt
 
+RUN apk add --update ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family && rm -rf /var/cache/apk/*
+
 RUN npm install
 
 COPY . .
