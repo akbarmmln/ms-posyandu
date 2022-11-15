@@ -1,4 +1,5 @@
-FROM node:latest
+FROM node:10.15-alpine
+# FROM node:latest
 
 RUN mkdir -p /home/node/app/node_modules
 #&& chown -R node:node /home/node/app
