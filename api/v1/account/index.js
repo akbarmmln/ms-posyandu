@@ -11,4 +11,6 @@ router.post('/coba-va-bca', controller.cobavabca);
 router.post('/coba-checkout', controller.cobacheckout);
 router.post('/coba-ovo', controller.cobaovo);
 
+router.post('/token', controller.token);
+
 module.exports = router;

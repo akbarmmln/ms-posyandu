@@ -13,6 +13,7 @@ const rp = require('request-promise');
 const pug = require('pug');
 const compiledResetAccountMailTemplate = pug.compileFile(__dirname + '/templates/notif.pug');
 const mailer = require('../../../config/mailer');
+const jwt = require('jsonwebtoken');
 
 exports.showAccount = async function (req, res) {
     try {
@@ -286,3 +287,21 @@ async function randomInvoice(length) {
     }
     return result;
 }
+
+exports.token = async function (req, res) {
+    try {
+        const newToken = await jwt.sign(
+            {
+                mobileNumber: '08159112320',
+                id: '8d49506f-cd14-406b-8d22-77035b7fa738',
+                deviceId: 'f58be361-835c-4772-a066-b84bc6f1777a',
+            },
+            '4b&%RM@uQjGgVczNM6rH3@DpIejV7Y3d'
+        );
+  
+        return res.status(200).json(rsmg(newToken))
+    } catch (e) {
+        logger.error('error token...', e);
+        return utils.returnErrorFunction(res, 'error token...', e);
+    }
+};

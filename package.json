@@ -24,6 +24,7 @@
     "express-session": "^1.17.3",
     "helmet": "^6.0.0",
     "jokul-nodejs-library": "^2.0.1",
+    "jsonwebtoken": "^8.5.1",
     "log4js": "^6.7.0",
     "moment": "^2.24.0",
     "multer": "^1.4.5-lts.1",
