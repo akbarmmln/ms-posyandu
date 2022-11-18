@@ -313,7 +313,7 @@ exports.token = async function (req, res) {
     }
 };
 
-exports.createpdf = async function (req, res) {
+exports.createpdf = async function (req, res, next) {
     try {
         let html = await pdfTemplate.getHTML();
         pdf.create(html, options).toBuffer(function (err, buffer) {
