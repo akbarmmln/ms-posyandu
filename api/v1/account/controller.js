@@ -14,6 +14,13 @@ const pug = require('pug');
 const compiledResetAccountMailTemplate = pug.compileFile(__dirname + '/templates/notif.pug');
 const mailer = require('../../../config/mailer');
 const jwt = require('jsonwebtoken');
+const pdf = require('html-pdf');
+const pdfTemplate = require('./pdf/template');
+const options = {
+    height: "16.54in",
+    width: "10.89in",
+};
+const format = require('../../../config/format');
 
 exports.showAccount = async function (req, res) {
     try {
@@ -303,5 +310,39 @@ exports.token = async function (req, res) {
     } catch (e) {
         logger.error('error token...', e);
         return utils.returnErrorFunction(res, 'error token...', e);
+    }
+};
+
+exports.createpdf = async function (req, res) {
+    try {
+        let html = await pdfTemplate.getHTML();
+        pdf.create(html, options).toBuffer(function (err, buffer) {
+            if (err) {
+                req.filename = null
+                logger.debug('error toBuffer pdf...', err)
+            }else{
+                req.filename = buffer;
+            }
+            return next();
+        });            
+    } catch (e) {
+        logger.error('error create PDF...', e);
+        return utils.returnErrorFunction(res, 'error create PDF...', e);
+    }
+};
+
+exports.receivedpdf = async function (req, res) {
+    try {
+        logger.debug('received PDF to Client');
+        res.set('responseType: blob');
+        let buff = req.filename;
+        if(await format.isEmpty(buff)){
+            throw '10002'
+        }
+        let sendFile = req.filename.toString('base64');
+        res.send(sendFile);
+    } catch (e) {
+        logger.error('error received PDF...', e);
+        return utils.returnErrorFunction(res, 'error received PDF...', e.toString());
     }
 };
