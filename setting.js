@@ -6,4 +6,12 @@ module.exports = {
         port: process.env.MYSQL_PORT,
         dbname: process.env.MYSQL_DATABASE,
     },
+    oss: {
+        credentials: {
+            accessKeyId: process.env.ACC_KEY_ID,
+            secretAccessKey: process.env.SCR_ACC_KEY
+        },
+        region: process.env.OSS_REGION,
+        endpoint: process.env.OSS_ENDPOINT
+    }
 };

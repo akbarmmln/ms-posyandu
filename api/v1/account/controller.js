@@ -17,14 +17,7 @@ const AdrCheckupIbuHamil = require('../../../model/adr_checkup_hamil');
 const rp = require('request-promise');
 const AdrActivity = require('../../../model/adr_activity');
 const FileType = require('file-type');
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3({
-  s3ForcePathStyle: true,
-  credentials: {
-    accessKeyId: '006SWZ1KKNP5ED8QLLWS', secretAccessKey: 'Qiu9PC6lDbw3byDfX1iJnGdePRtHDrSrww7Lwgkk', 
-  },
-  region: 'Jakarta', endpoint: 'https://s3-jkt1.dcloud.co.id'
-});
+const s3 = require('../../../config/oss').client;
 const AdrFileChunk = require('../../../model/adr_file_chunk');
 const base64 = require('../../../utils/base64');
 const fetch = require('node-fetch');
