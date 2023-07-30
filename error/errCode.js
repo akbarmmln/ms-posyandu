@@ -3,6 +3,7 @@ const errCode = {
     '10001': 'nik not found',
     '10002': 'password not match',
     '10003': 'nik already register',
+    '10004': 'something error',
   };
   
   module.exports = errCode;
