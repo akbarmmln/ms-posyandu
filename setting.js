@@ -1,15 +1,9 @@
 module.exports = {
     mysql: {
-        hostname: process.env.MYSQL_HOSTNAME,
-        username: process.env.MYSQL_USERNAME,
-        password: process.env.MYSQL_PASSWORD,
-        port: process.env.MYSQL_PORT,
-        dbname: process.env.MYSQL_DATABASE,
+        hostname: "rm-d9jl3xtniu9x99a4f2o.mysql.ap-southeast-5.rds.aliyuncs.com",
+        username: "qcadmin",
+        password: "sB1w1^%1qoQ9HhHv",
+        port: "3306",
+        dbname: "ms_psynd",
     },
-    email: {
-        hostname: process.env.HOST_MAIL,
-        username: process.env.USER_MAIl,
-        password: process.env.PASS_MAIL,
-        port: process.env.PORT_MAIL
-    }
 };
