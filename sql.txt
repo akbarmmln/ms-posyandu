@@ -1,0 +1,116 @@
+CREATE TABLE ms_psynd.`activity` (
+  `id` varchar(100) NOT NULL,
+  `account_id` varchar(100) NOT NULL,
+  `group` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `page_link` varchar(100) NOT NULL,
+  `data` longtext,
+  `created_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE ms_psynd.`checkup_balita` (
+  `id` varchar(100) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nik` varchar(100) NOT NULL,
+  `umur` varchar(100) NOT NULL,
+  `tgl_periksa` datetime NOT NULL,
+  `berat_badan` varchar(100) NOT NULL,
+  `ket_berat_badan` varchar(100) NOT NULL,
+  `tinggi_badan` varchar(100) NOT NULL,
+  `ket_tinggi_badan` varchar(100) NOT NULL,
+  `lingkar_kepala` varchar(100) NOT NULL,
+  `ket_lingkar_kepala` varchar(100) NOT NULL,
+  `jenis_imunisasi` varchar(100) NOT NULL,
+  `catatan` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `obat` varchar(100) NOT NULL,
+  `orang_tua_kandung` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `account_id` varchar(100) DEFAULT NULL,
+  `tanggal_lahir` datetime DEFAULT NULL,
+  `rating` varchar(100) DEFAULT NULL,
+  `jenis_kelamin` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE ms_psynd.`checkup_ibu_hamil` (
+  `id` varchar(100) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nik` varchar(100) NOT NULL,
+  `nama_suami` varchar(100) NOT NULL,
+  `usia_hamil` varchar(100) NOT NULL,
+  `tanggal_periksa` datetime NOT NULL,
+  `berat_badan` varchar(100) NOT NULL,
+  `tensi_darah` varchar(100) NOT NULL,
+  `ket_tensi_darah` varchar(100) NOT NULL,
+  `lingkar_lengan_atas` varchar(100) NOT NULL,
+  `ket_lingkar_lengan_atas` varchar(100) NOT NULL,
+  `denyut_jantung_bayi` varchar(100) NOT NULL,
+  `ket_denyut_jantung_bayi` varchar(100) NOT NULL,
+  `catatan` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `obat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `account_id` varchar(100) DEFAULT NULL,
+  `tinggi_fundus` varchar(100) DEFAULT NULL,
+  `ket_tinggi_fundus` varchar(100) DEFAULT NULL,
+  `tanggal_lahir` datetime DEFAULT NULL,
+  `rating` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE ms_psynd.`checkup_lansia` (
+  `id` varchar(100) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nik` varchar(100) NOT NULL,
+  `umur` varchar(100) NOT NULL,
+  `jenis_kelamin` varchar(100) NOT NULL,
+  `tgl_periksa` datetime NOT NULL,
+  `berat_badan` varchar(100) NOT NULL,
+  `tinggi_badan` varchar(100) NOT NULL,
+  `tensi_darah` varchar(100) NOT NULL,
+  `ket_tensi_darah` varchar(100) NOT NULL,
+  `asam_urat` varchar(100) NOT NULL,
+  `ket_asam_urat` varchar(100) NOT NULL,
+  `kolerstrol` varchar(100) NOT NULL,
+  `ket_kolerstrol` varchar(100) NOT NULL,
+  `catatan` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `obat` varchar(100) NOT NULL,
+  `account_id` varchar(100) DEFAULT NULL,
+  `tanggal_lahir` datetime DEFAULT NULL,
+  `rating` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE ms_psynd.`file_chunk` (
+  `id` varchar(100) NOT NULL,
+  `id_file` varchar(100) NOT NULL,
+  `url_link` longtext,
+  `created_dt` datetime(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE ms_psynd.`kader` (
+  `id` varchar(100) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nik` varchar(100) NOT NULL,
+  `umur` varchar(100) NOT NULL,
+  `alamat` varchar(100) NOT NULL,
+  `tanggal_lahir` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE ms_psynd.`peserta` (
+  `id` varchar(100) NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nik` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `umur` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `alamat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `tanggal_lahir` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `jenis_kelamin` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `peserta_posyandu` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `kartu_keluarga` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_dt` datetime DEFAULT NULL,
+  `device_id` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
