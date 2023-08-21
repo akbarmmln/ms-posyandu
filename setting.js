@@ -13,5 +13,11 @@ module.exports = {
         },
         region: process.env.OSS_REGION,
         endpoint: process.env.OSS_ENDPOINT
+    },
+    email: {
+        hostname: process.env.HOST_MAIL,
+        username: process.env.USER_MAIL,
+        password: process.env.PASS_MAIL,
+        port: process.env.PORT_MAIL
     }
 };

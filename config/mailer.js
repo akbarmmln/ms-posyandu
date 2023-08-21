@@ -11,7 +11,7 @@ exports.smtpMailer = async function (mailObject) {
     let username = settings.username;
     let password = settings.password;
     let port = settings.port;
-    let from = mailObject.from = 'noreplaay@emfrst.co.id';
+    let from = mailObject.from = 'noreplay@emfrst.co.id';
     let to = mailObject.to;
     let subject = mailObject.subject;
     let body = mailObject.html;
