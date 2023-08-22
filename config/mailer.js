@@ -11,13 +11,13 @@ exports.smtpMailer = async function (mailObject) {
     let username = settings.username;
     let password = settings.password;
     let port = settings.port;
-    let from = mailObject.from = 'noreplay@emfrst.co.id';
+    let from = 'noreplay@emfrst.co.id';
     let to = mailObject.to;
     let subject = mailObject.subject;
     let body = mailObject.html;
     let attachments = mailObject.attachments;
 
-    let transporter = nodemailer.createTransport({
+    let payloadTransport = {
       host: hostname,
       port: port,
       secure: false,
@@ -25,14 +25,16 @@ exports.smtpMailer = async function (mailObject) {
         user: username,
         pass: password
       }
-    });
+    }
+    let transporter = nodemailer.createTransport(payloadTransport);
     let sendProps = {
       from: from,
       to: to,
       subject: subject,
       html: body
     };
-  
+    logger.debug(`payload transport mail: ${JSON.stringify(payloadTransport)}, with sendProps: ${JSON.stringify(sendProps)}`)
+
     if(attachments){
       sendProps.attachments = attachments
     }
