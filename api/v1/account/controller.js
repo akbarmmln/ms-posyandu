@@ -1956,7 +1956,7 @@ exports.uploadFileSingle = async function (req, res) {
 
     let upload = await s3.upload({
       ACL: 'public-read',
-      Bucket: 'bucket-sit-c58v4',
+      Bucket: 'bucket-sit',
       Key: key,
       Body: buf,
       ContentEncoding: 'base64',
@@ -1980,7 +1980,7 @@ exports.uploadFileMultipart = async function (req, res) {
     let ext = filetype.ext;
     let mime = filetype.mime;
     let name = moment().format('YYYYMMDDHHmmSSS');
-    let bucket = 'bucket-sit-c58v4';
+    let bucket = 'bucket-sit';
     let key = `${ext}/${name}`;
 
     let numPartsLeft = Math.ceil(buffer.length / partSize);
@@ -2091,5 +2091,15 @@ exports.uploadFileChunk = async function(req, res){
   }catch(e){
     logger.error('error uploadFileChunk...', e);
     return utils.returnErrorFunction(res, 'error uploadFileChunk...', e.toString());
+  }
+}
+
+exports.listBucket = async function(req, res){
+  try{
+    let upload = await s3.listBuckets().promise();
+    return res.status(200).json(rsmg(upload))
+  }catch(e){
+    logger.error('error list bucket...', e);
+    return utils.returnErrorFunction(res, 'error list bucket...', e.toString());
   }
 }

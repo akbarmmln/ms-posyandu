@@ -52,6 +52,7 @@ router.post('/data-pengunjung', controller.dataPengunjung);
 router.post('/upload-file-single', controller.uploadFileSingle);
 router.post('/upload-file-multipart', controller.uploadFileMultipart);
 router.post('/upload-file-chunck', controller.uploadFileChunk);
+router.get('/list-bucket', controller.listBucket);
 router.post('/join', controller.join);
 
 router.post('/logout', controller.logout);
