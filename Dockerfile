@@ -21,6 +21,11 @@ COPY ./ /home/node/app/
 #       # nodejs
 #       # yarn
 
+# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+#     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+ENV CHROME_BIN="/usr/bin/chromium-browser" \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
 RUN set -x \
     && apk update \
     && apk upgrade \
@@ -33,9 +38,6 @@ RUN set -x \
     ca-certificates \
     && update-ca-certificates
     
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
 # Install curl
 RUN apk add curl
 
