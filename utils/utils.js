@@ -17,14 +17,9 @@ exports.returnErrorFunction = function (resObject, errorMessageLogger, errorObje
 
 exports.generatePDF = async (html, options) => {
   let browser = await puppeteer.launch({
-    headless: true,
     executablePath: '/usr/bin/chromium-browser',
-    args: [
-      '--no-sandbox',
-      '--headless',
-      '--disable-gpu',
-      '--disable-dev-shm-usage'
-    ]
+    headless: true,
+    args: ['--no-sandbox', '--headless', '--disable-gpu', '--disable-dev-shm-usage', 'chromium-browser']
   });
 
   const page = await browser.newPage();
