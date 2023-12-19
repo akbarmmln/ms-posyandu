@@ -26,6 +26,7 @@ COPY ./ /home/node/app/
 
 ENV CHROME_BIN="/usr/bin/chromium-browser" \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+
 RUN set -x \
     && apk update \
     && apk upgrade \
