@@ -1,7 +1,7 @@
 'use-strict';
 
-const logger = require('../../../config/logger');
-const format = require('../../../config/format');
+const logger = require('../../../../config/logger');
+const format = require('../../../../config/format');
 const moment = require('moment');
 
 exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
@@ -245,7 +245,7 @@ exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
         </html>
         `;
     } catch (e) {
-        logger.errorWithContext({error: e, message: 'error creating receipt html'})
+        logger.error(`error creating receipt html ${e}`);
         throw e;
     }
 }

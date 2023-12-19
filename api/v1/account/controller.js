@@ -2160,9 +2160,9 @@ exports.paymentReceipt = async function(req, res){
     let bufferResult = await utils.generatePDF(htmlString, opt);
     let buf = Buffer.from(bufferResult).toString('base64');
 
-    return res.status(200).json(rsMsg(buf))
+    return res.status(200).json(rsmg(buf))
   }catch(e){
-    logger.errorWithContext({message: 'Error generate payment receipt', error: e})
+    logger.error(`Error generate payment receipt ${e}`)
     return utils.returnErrorFunction(res, 'error generate payment receipt...', e);
   }
 }
