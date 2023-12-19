@@ -17,17 +17,28 @@ exports.returnErrorFunction = function (resObject, errorMessageLogger, errorObje
 
 exports.generatePDF = async (html, options) => {
   let browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser',
     headless: true,
-    args: ['--no-sandbox', '--headless', '--disable-gpu', '--disable-dev-shm-usage', 'chromium-browser', 'google-chrome']
+    executablePath: '/usr/bin/chromium-browser',
+    args: [
+      '--no-sandbox',
+      '--headless',
+      '--disable-gpu',
+      '--disable-dev-shm-usage'
+    ]
   });
 
   const page = await browser.newPage();
   await page.setContent(html);
-  page.setDefaultNavigationTimeout(0);
+  await page.setDefaultNavigationTimeout(0);
   const pdf = await page.pdf({
     width: options.width,
     height: options.height,
+    margin: {
+      top: options.top,
+      bottom: options.bottom,
+      left: options.left,
+      right: options.right,
+    },
     printBackground: false,
     landscape: true,
     pageRanges: '1-1',

@@ -2108,11 +2108,11 @@ exports.listBucket = async function(req, res){
 exports.paymentReceipt = async function(req, res){
   try{
     let opt = {
-      height: '4.5in', width: '11.0in',
+      height: '4.5in', width: '9.5in',
       border: {
         top: '0.1in',
-        right: '0.75in',
-        left: '0.75in',
+        right: '0.1in',
+        left: '0.1in',
         bottom: '0.1in'
       }
     };
