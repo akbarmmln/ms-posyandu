@@ -210,7 +210,7 @@ exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
                     </table>
                     <p>Lindungi motor &amp; jiwa anda dengan Motorku AMAN <br/> * Berlaku hanya 1bln dari skrg (SK Khusus penawaran asuransi) <br/> Per 1-May-2015 pembayaran Angsuran melalui Kasir Cabang/RO/Kios akan di kenakan biaya sesuai ketentuan</p>
                 </div>
-                <div class="column middle"><br /><img style="vertical-align:middle;margin:5px 0px 0px 20px" src="https://adira-akses-prod.oss-ap-southeast-5.aliyuncs.com/IconImage/Raku-e-Materai%404x.png" alt="" width="60" height="65" /></div>
+                <div class="column middle"><br /><img style="vertical-align:middle;margin:5px 0px 0px 40px" src="https://adira-akses-prod.oss-ap-southeast-5.aliyuncs.com/IconImage/Raku-e-Materai%404x.png" alt="" width="60" height="65" /></div>
                 <div class="column right"><br /><img style="vertical-align:middle;margin:0px 0px 0px -1px" src="https://adira-akses-prod.oss-ap-southeast-5.aliyuncs.com/IconImage/Body-e-Materai%404x.png" alt="" width="250" height="70" />
                     <table style="border-collapse: collapse; width: 100%;">
                         <tbody>
