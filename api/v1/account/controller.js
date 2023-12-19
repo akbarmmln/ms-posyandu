@@ -2107,6 +2107,7 @@ exports.listBucket = async function(req, res){
 
 exports.paymentReceipt = async function(req, res){
   try{
+    logger.debug(`payload received for paymentReceipt... ${JSON.stringify(req.body)}`)
     let opt = {
       height: '4.5in', width: '9.5in',
       border: {
