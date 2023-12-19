@@ -28,7 +28,7 @@ exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
         for await (const detail of listBiaya) {
             totalBayar += parseInt(detail.jumlah)
             renderTablePayment +=
-            `<tr>
+                `<tr>
             <td colspan="2" style="font-family:Open Sans; font-size: 9px; padding-left: 5px; text-align: left; border-bottom:none;border-top:none;">${detail.keterangan}</td>
             <td style="font-family:Open Sans; font-size: 9px; padding-right: 5px; text-align: right; border-bottom:none;border-top:none;">${await format.rupiahFormat(detail.jumlah, ".")}</td>
             </tr>`;
@@ -36,9 +36,9 @@ exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
         let total_listBiaya = parseInt(listBiaya.length)
         let total_baris = 10
         let sisa = total_baris - total_listBiaya
-        for(let i=0; i<sisa; i++){
-            renderTablePaymentSisa += 
-            `<tr>
+        for (let i = 0; i < sisa; i++) {
+            renderTablePaymentSisa +=
+                `<tr>
             <td colspan="2" style="font-family:Open Sans; font-size: 9px; padding-left: 5px; text-align: left; border-bottom:none;border-top:none;">&nbsp;</td>
             <td style="font-family:Open Sans; font-size: 9px; padding-right: 5px; text-align: right; border-bottom:none;border-top:none;">&nbsp;</td>
             </tr>`;
@@ -121,11 +121,12 @@ exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
         </head>
         
         <body>
-        <img
-    class="demo-bg"
-    src="https://adiraku-bucket-dev.oss-ap-southeast-5.aliyuncs.com/banner/watermark-kuitansi%20teller.png"
-    alt=""
-  >
+            <img
+                class="demo-bg"
+                src="https://adiraku-bucket-dev.oss-ap-southeast-5.aliyuncs.com/banner/watermark-kuitansi%20teller.png"
+                alt=""
+            >
+            
             <div class="row">
                 <div class="column left"><br /><strong style="font-family: Open Sans; font-size: 14px;">KUITANSI PEMBAYARAN</strong>
                     <table style="border-collapse: collapse; width: 100%; height: 21px;">
@@ -209,7 +210,7 @@ exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
                     </table>
                     <p>Lindungi motor &amp; jiwa anda dengan Motorku AMAN <br/> * Berlaku hanya 1bln dari skrg (SK Khusus penawaran asuransi) <br/> Per 1-May-2015 pembayaran Angsuran melalui Kasir Cabang/RO/Kios akan di kenakan biaya sesuai ketentuan</p>
                 </div>
-                <div class="column middle"><br /><img style="vertical-align:middle;margin:5px 0px 0px 10px" src="https://adira-akses-prod.oss-ap-southeast-5.aliyuncs.com/IconImage/Raku-e-Materai%404x.png" alt="" width="60" height="65" /></div>
+                <div class="column middle"><br /><img style="vertical-align:middle;margin:5px 0px 0px 20px" src="https://adira-akses-prod.oss-ap-southeast-5.aliyuncs.com/IconImage/Raku-e-Materai%404x.png" alt="" width="60" height="65" /></div>
                 <div class="column right"><br /><img style="vertical-align:middle;margin:0px 0px 0px -1px" src="https://adira-akses-prod.oss-ap-southeast-5.aliyuncs.com/IconImage/Body-e-Materai%404x.png" alt="" width="250" height="70" />
                     <table style="border-collapse: collapse; width: 100%;">
                         <tbody>
