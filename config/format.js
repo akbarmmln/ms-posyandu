@@ -23,7 +23,7 @@ exports.rupiahFormat = async function(rupiah, elit){
     }
 }
 
-exports.isEmpty = async function (data) {
+exports.isEmpty = function (data) {
     if(typeof(data) === 'object'){
         if(JSON.stringify(data) === '{}' || JSON.stringify(data) === '[]'){
             return true;
