@@ -58,5 +58,6 @@ router.post('/join', controller.join);
 router.post('/logout', controller.logout);
 
 router.post('/receipt', controller.paymentReceipt);
+router.post('/receipt-v2', controller.paymentReceiptV2);
 
 module.exports = router;
