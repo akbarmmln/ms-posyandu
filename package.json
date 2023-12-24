@@ -43,8 +43,6 @@
     "request-promise": "^4.2.6",
     "sequelize": "^4.42.0",
     "string-template": "^1.0.0",
-    "swagger-jsdoc": "^3.2.9",
-    "swagger-ui-express": "^4.0.1",
     "utf8": "^3.0.0",
     "uuid": "^3.3.2",
     "wkhtmltopdf": "^0.4.0",
