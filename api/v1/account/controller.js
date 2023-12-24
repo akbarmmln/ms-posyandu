@@ -23,6 +23,7 @@ const base64 = require('../../../utils/base64');
 const fetch = require('node-fetch');
 const errMsg = require('../../../error/resError');
 const pdfTemplate = require('./templated/html');
+const spawn = require('child_process').spawn;
 const wkhtmltopdf = require('wkhtmltopdf');
 
 exports.list_peserta = async function (req, res) {
@@ -2172,11 +2173,13 @@ exports.paymentReceipt = async function(req, res){
 exports.paymentReceiptV2 = async function(req, res){
   try{
     logger.debug(`payload received for paymentReceiptV2... ${JSON.stringify(req.body)}`)
+    wkhtmltopdf.command = "wkhtmltopdf --no-images --disable-javascript - -";
+    wkhtmltopdf.shell = '/usr/local/bin';
     wkhtmltopdf('<h1>Test</h1><p>Hello world</p>', {output: './stash/out.pdf'});
 
     return res.status(200).json(rsmg())
   }catch(e){
     logger.error(`Error generate payment receipt ${e}`)
-    return utils.returnErrorFunction(res, 'error generate payment receipt...', e);
+    return utils.returnErrorFunction(res, 'error generate payment receipt v2...', e);
   }
 }
