@@ -30,9 +30,6 @@ RUN apk add curl
 #Install LFTP
 RUN apk add lftp
 
-RUN apk add --no-cache wkhtmltopdf
-ENTRYPOINT ["wkhtmltopdf"]
-
 # Compile code
 RUN npm install
 
