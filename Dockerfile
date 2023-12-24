@@ -44,7 +44,7 @@ RUN apk add lftp
 RUN npm install
 
 # Config Timezone Asia/Jakarta
-RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
+RUN apk add tzdata gnupg && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
 
 COPY . .
 
