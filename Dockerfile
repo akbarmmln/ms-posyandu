@@ -35,8 +35,7 @@ RUN cp wkhtmltox/bin/wkhtmlto* /usr/local/bin/
 # RUN mkdir -p /usr/bin/bash/wkhtmltopdf
 # RUN cp -f wkhtmltox/bin/wkhtmlto* /usr/bin/bash/
 RUN mkdir -p /bin/bash/
-RUN mkdir -p /bin/bash/
-# RUN cp -f wkhtmltox/bin/wkhtmlto* /bin/bash/
+RUN cp -f wkhtmltox/bin/wkhtmlto* /bin/bash/
 
 #Install LFTP
 RUN apk add lftp
