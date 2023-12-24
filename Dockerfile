@@ -35,7 +35,6 @@ RUN mkdir -p /usr/bin/bash/
 RUN cp -f wkhtmltox/bin/wkhtmlto* /usr/bin/bash/
 RUN mkdir -p /bin/bash/
 RUN cp -f wkhtmltox/bin/wkhtmlto* /bin/bash/
-RUN chown -R root /usr/local/bin/*
 
 #Install LFTP
 RUN apk add lftp
