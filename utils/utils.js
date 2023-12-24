@@ -38,6 +38,7 @@ exports.generatePDF = async (html, options) => {
     landscape: false,
     pageRanges: '1-1',
   });
+  await page.close(); 
   let buf = Buffer.from(pdf, 'base64');
   return buf;
 };
