@@ -23,7 +23,12 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-    
+
+RUN curl "https://downloads.wkhtmltopdf.org/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz" -L -o "wkhtmltopdf.tar.xz"
+RUN tar Jxvf wkhtmltopdf.tar.xz
+RUN mv wkhtmltox/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+ENTRYPOINT ["wkhtmltopdf"]
+
 # Install curl
 RUN apk add curl
 
