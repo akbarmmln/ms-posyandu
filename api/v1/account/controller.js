@@ -2212,7 +2212,7 @@ exports.paymentReceiptV2 = async function(req, res){
     const htmlString = await pdfTemplate.getReceiptv3(headerKwintansi);
     
     // Command to execute wkhtmltopdf
-    const wkhtmltopdfCommand = `wkhtmltopdf - -`;
+    const wkhtmltopdfCommand = `/usr/bin/wkhtmltopdf - -`;
 
     // Execute wkhtmltopdf as a child process
     const childProcess = exec(wkhtmltopdfCommand, { encoding: 'base64' }, (error, stdout, stderr) => {
