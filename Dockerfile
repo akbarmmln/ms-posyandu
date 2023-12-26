@@ -5,18 +5,7 @@ WORKDIR /home/node/app
 COPY ./ /home/node/app/
 
 RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
-      xvfb \
-      build-essential \
-      xorg \
-      libssl1.0-dev \
-      libssl-dev \
-      libxrender-dev \
-      libfontconfig \
-      zlib1g \
-      libfreetype6 \
-      libxrender1 \
-      libxext6 \
-      libx11-6
+      xvfb
 
 RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 RUN tar -xf wkhtmltopdf.tar.xz
