@@ -23,8 +23,7 @@ const base64 = require('../../../utils/base64');
 const fetch = require('node-fetch');
 const errMsg = require('../../../error/resError');
 const pdfTemplate = require('./templated/html');
-const spawn = require('child_process').spawn;
-const wkhtmltopdf = require('wkhtmltopdf');
+const { exec } = require('child_process');
 
 exports.list_peserta = async function (req, res) {
   try{
@@ -2171,15 +2170,65 @@ exports.paymentReceipt = async function(req, res){
 }
 
 exports.paymentReceiptV2 = async function(req, res){
-  try{
-    logger.debug(`payload received for paymentReceiptV2... ${JSON.stringify(req.body)}`)
-    wkhtmltopdf.command = "wkhtmltopdf --no-images --disable-javascript - -";
-    wkhtmltopdf.shell = '/usr/local/bin';
-    wkhtmltopdf('<h1>Test</h1><p>Hello world</p>', {output: './stash/out.pdf'});
+  try {
+    const headerKwintansi = {
+      "header": {
+        "code": "ESB-00-000",
+        "message": "Request is successfully processed",
+        "srcCode": "200",
+        "srcMessage": "SUCCESS",
+        "addInfo": {
+          "requestId": "TEST-201904181418112234",
+          "requestTimestamp": "2019-04-18 11:22:33",
+          "refNo": "20231219113310803211773738865207",
+          "srcTarget": "-"
+        }
+      },
+      "data": {
+        "noTrx": "021223R020915",
+        "trxDate": "2023-10-02 00:00:00.0",
+        "contNo": "021221418163",
+        "custName": "SADIMO WARDIDJAH",
+        "colaPlatNo": "-",
+        "jthTempo": "03-Jul-2023",
+        "sisaHutang": "1,609,997.00",
+        "kumulatifDenda": "0",
+        "lokasiPembayaran": "CIREBON-WAHIDIN",
+        "namaPegawai": "TITAH NANDITHA",
+        "terbilang": "Satu Juta Lima Ratus Tiga Puluh Sembilan Ribu Sembilan Ratus Lima Puluh Rupiah",
+        "listBiaya": [
+          {
+            "jumlah": "805000",
+            "keterangan": "001 PENERIMAAN ANGSURAN"
+          },
+          {
+            "jumlah": "734950",
+            "keterangan": "001 PENERIMAAN DENDA"
+          }
+        ],
+        "total": "1539950"
+      }
+    }
+    const htmlString = await pdfTemplate.getReceiptv3(headerKwintansi);
+    
+    // Command to execute wkhtmltopdf
+    const wkhtmltopdfCommand = `wkhtmltopdf - -`;
 
-    return res.status(200).json(rsmg())
-  }catch(e){
-    logger.error(`Error generate payment receipt ${e}`)
-    return utils.returnErrorFunction(res, 'error generate payment receipt v2...', e);
+    // Execute wkhtmltopdf as a child process
+    const childProcess = exec(wkhtmltopdfCommand, { encoding: 'base64' }, (error, stdout, stderr) => {
+      if (error) {
+        logger.error('Error generating PDF', error.toString())
+        res.status(500).send({ error: error.toString() });
+      } else {
+        res.send(stdout);
+      }
+    });
+
+    // Send HTML content to wkhtmltopdf via stdin
+    childProcess.stdin.write(htmlString);
+    childProcess.stdin.end();
+  } catch (e) {
+    logger.error('Internal server error - Error generating PDF', e.toString())
+    res.status(500).send({ error: e.toString() });
   }
 }
