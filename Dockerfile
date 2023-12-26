@@ -4,8 +4,8 @@ RUN mkdir -p /home/node/app/node_modules
 WORKDIR /home/node/app
 COPY ./ /home/node/app/
 
-RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
-      wkhtmltopdf
+RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates
+      
 
 # RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
 #     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
@@ -30,7 +30,7 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
 # Install curl
 RUN apk add curl
 
-# RUN apk add wkhtmltopdf
+RUN apk add wkhtmltopdf
 # RUN apt add xvfb
 # RUN apt add openssl 
 # RUN apt add build-essential
