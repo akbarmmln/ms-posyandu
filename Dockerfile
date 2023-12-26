@@ -27,15 +27,21 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 # Install curl
 RUN apk add curl
 
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-RUN tar xvJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-RUN cp wkhtmltox/bin/wkhtmlto* /usr/bin/
-RUN cp wkhtmltox/bin/wkhtmlto* /usr/local/bin/
-RUN mkdir -p /usr/bin/bash/
-RUN cp -f wkhtmltox/bin/wkhtmlto* /usr/bin/bash/
-RUN mkdir -p /bin/bash/
-RUN cp -f wkhtmltox/bin/wkhtmlto* /bin/bash/
-RUN chown -R root /usr/local/bin/*
+RUN apk add wkhtmltopdf
+# RUN apt add xvfb
+# RUN apt add openssl 
+# RUN apt add build-essential
+# RUN apt add xorg
+# RUN apt add libssl1.0-dev
+
+# RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+# RUN tar xvJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+# RUN cp wkhtmltox/bin/wkhtmlto* /usr/bin/
+# RUN cp wkhtmltox/bin/wkhtmlto* /usr/local/bin/
+# RUN mkdir -p /usr/bin/bash/
+# RUN cp -f wkhtmltox/bin/wkhtmlto* /usr/bin/bash/
+# RUN mkdir -p /bin/bash/
+# RUN cp -f wkhtmltox/bin/wkhtmlto* /bin/bash/
 
 #Install LFTP
 RUN apk add lftp
