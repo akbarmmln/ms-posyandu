@@ -5,29 +5,48 @@ WORKDIR /home/node/app
 COPY ./ /home/node/app/
 
 RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
-    echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
-    echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/main >> /etc/apk/repositories && \
-    apk add chromium@3.10=77.0.3865.120-r0 \
-      nss@3.10 \
-      freetype@3.10 \
-      freetype-dev@3.10 \
-      harfbuzz@3.10 \
-      ca-certificates \
-      ttf-freefont@3.10 \
-      ttf-dejavu \
-      ttf-droid \
-      ttf-liberation \
-      ttf-ubuntu-font-family && rm -rf /var/cache/apk/*
-      # nodejs
-      # yarn
+      xvfb \
+      build-essential \
+      xorg \
+      libssl1.0-dev \
+      libssl-dev \
+      libxrender-dev \
+      libfontconfig \
+      zlib1g \
+      libfreetype6 \
+      libxrender1 \
+      libxext6 \
+      libx11-6
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+RUN tar -xf wkhtmltopdf.tar.xz
+RUN cp wkhtmltox/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+RUN chmod +x /usr/local/bin/wkhtmltopdf
+
+# RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
+#     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
+#     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/main >> /etc/apk/repositories && \
+#     apk add chromium@3.10=77.0.3865.120-r0 \
+#       nss@3.10 \
+#       freetype@3.10 \
+#       freetype-dev@3.10 \
+#       harfbuzz@3.10 \
+#       ca-certificates \
+#       ttf-freefont@3.10 \
+#       ttf-dejavu \
+#       ttf-droid \
+#       ttf-liberation \
+#       ttf-ubuntu-font-family && rm -rf /var/cache/apk/*
+#       # nodejs
+#       # yarn
+
+# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+#     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install curl
 RUN apk add curl
 
-RUN apk add wkhtmltopdf
+# RUN apk add wkhtmltopdf
 # RUN apt add xvfb
 # RUN apt add openssl 
 # RUN apt add build-essential
