@@ -5,17 +5,7 @@ WORKDIR /home/node/app
 COPY ./ /home/node/app/
 
 RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
-      libfontconfig \
-      zlib1g \
-      libfreetype6 \
-      libxrender1 \
-      libxext6 \
-      libx11-6
-
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-RUN tar -xf wkhtmltopdf.tar.xz
-RUN cp wkhtmltox/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
-RUN chmod +x /usr/local/bin/wkhtmltopdf
+      wkhtmltopdf
 
 # RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
 #     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
