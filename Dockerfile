@@ -10,6 +10,7 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/main >> /etc/apk/repositories && \
     apk add chromium@3.10=77.0.3865.120-r0 \
+      nodejs \
       nss@3.10 \
       freetype@3.10 \
       freetype-dev@3.10 \
@@ -31,7 +32,6 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       && fc-cache -f \
       && rm -rf /tmp/* \
       && apk del .build-deps
-      nodejs
       # yarn
 
 RUN echo "Node: " && node -v
