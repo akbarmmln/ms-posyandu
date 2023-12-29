@@ -2215,7 +2215,7 @@ exports.paymentReceiptV2 = async function(req, res){
     const wkhtmltopdfCommand = `wkhtmltopdf - - | cat`;
 
     // Execute wkhtmltopdf as a child process
-    const childProcess = exec(wkhtmltopdfCommand, { encoding: 'base64' }, (error, stdout, stderr) => {
+    const childProcess = exec(wkhtmltopdfCommand, { maxBuffer: 1024 * 1024, encoding: 'base64' }, (error, stdout, stderr) => {
       if (error) {
         logger.error('Error generating PDF', error.toString())
         res.status(500).send({ error: error.toString() });
