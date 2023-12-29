@@ -1,5 +1,5 @@
 FROM node:10.15-alpine
-FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
+FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full
 FROM openjdk:19-jdk-alpine3.16
 
 RUN mkdir -p /home/node/app/node_modules
@@ -10,7 +10,6 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/main >> /etc/apk/repositories && \
     apk add chromium@3.10=77.0.3865.120-r0 \
-      nodejs \
       nss@3.10 \
       freetype@3.10 \
       freetype-dev@3.10 \
@@ -32,7 +31,6 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       && fc-cache -f \
       && rm -rf /tmp/* \
       && apk del .build-deps
-      # yarn
 
 # Copy wkhtmltopdf files from docker-wkhtmltopdf image
 COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
