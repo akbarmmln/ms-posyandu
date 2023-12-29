@@ -31,8 +31,11 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       && fc-cache -f \
       && rm -rf /tmp/* \
       && apk del .build-deps
-      # nodejs
+      nodejs
       # yarn
+
+RUN echo "Node: " && node -v
+RUN echo "NPM: " && npm -v
 
 # Copy wkhtmltopdf files from docker-wkhtmltopdf image
 COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
