@@ -1,5 +1,8 @@
 FROM node:10.15-alpine
 
+FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
+FROM openjdk:19-jdk-alpine3.16
+
 RUN mkdir -p /home/node/app/node_modules
 WORKDIR /home/node/app
 COPY ./ /home/node/app/      
@@ -25,7 +28,12 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 # Install curl
 RUN apk add curl
 
-RUN apk add wkhtmltopdf
+# Copy wkhtmltopdf files from docker-wkhtmltopdf image
+COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
+COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
+COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
+
+# RUN apk add wkhtmltopdf
 # RUN apt add xvfb
 # RUN apt add openssl 
 # RUN apt add build-essential
