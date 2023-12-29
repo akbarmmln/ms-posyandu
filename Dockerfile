@@ -23,8 +23,7 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       ttf-freefont@3.10 \
       ttf-dejavu \
       ttf-droid \
-      ttf-liberation \
-      ttf-ubuntu-font-family && rm -rf /var/cache/apk/*
+      ttf-liberation
       # nodejs
       # yarn
 
