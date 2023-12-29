@@ -23,7 +23,19 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       ttf-freefont@3.10 \
       ttf-dejavu \
       ttf-droid \
-      ttf-liberation
+      ttf-liberation \
+      libstdc++ \
+      libx11 \
+      libxrender \
+      libxext \
+      libssl1.1 \
+      ntconfig \
+      && apk add --no-cache --virtual .build-deps \
+      msttcorefonts-installer \
+      && update-ms-fonts \
+      && fc-cache -f \
+      && rm -rf /tmp/* \
+      && apk del .build-deps
       # nodejs
       # yarn
 
@@ -32,13 +44,6 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 # Install curl
 RUN apk add curl
-
-RUN apk add wkhtmltopdf
-# RUN apt add xvfb
-# RUN apt add openssl 
-# RUN apt add build-essential
-# RUN apt add xorg
-# RUN apt add libssl1.0-dev
 
 # RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 # RUN tar xvJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
