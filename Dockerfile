@@ -29,7 +29,7 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       libxrender \
       libxext \
       libssl1.1 \
-      ntconfig \
+      fontconfig \
       && apk add --no-cache --virtual .build-deps \
       msttcorefonts-installer \
       && update-ms-fonts \
