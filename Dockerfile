@@ -1,13 +1,7 @@
 FROM node:10.15-alpine
-FROM ghcr.io/surnet/alpine-wkhtmltopdf:3.19.0-0.12.6-full as wkhtmltopdf
-FROM openjdk:19-jdk-alpine3.16
 
 RUN mkdir -p /home/node/app/node_modules
 WORKDIR /home/node/app
-
-COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
-COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
-COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
 COPY ./ /home/node/app/      
 
 RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
@@ -58,6 +52,12 @@ RUN apk add lftp
 
 # Compile code
 RUN npm install
+
+FROM ghcr.io/surnet/alpine-wkhtmltopdf:3.19.0-0.12.6-full as wkhtmltopdf
+FROM openjdk:19-jdk-alpine3.16
+COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
+COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
+COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
 
 # Config Timezone Asia/Jakarta
 RUN apk add tzdata gnupg && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
