@@ -18,8 +18,6 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       ttf-droid \
       ttf-liberation \
       ttf-ubuntu-font-family && rm -rf /var/cache/apk/*
-      # nodejs
-      # yarn
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
