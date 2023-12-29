@@ -1,15 +1,14 @@
 FROM node:10.15-alpine
-FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
-FROM openjdk:19-jdk-alpine3.16
-
-RUN mkdir -p /home/node/app/node_modules
-WORKDIR /home/node/app
-COPY ./ /home/node/app/      
+FROM ghcr.io/surnet/alpine-wkhtmltopdf:3.19.0-0.12.6-full as wkhtmltopdf
 
 # Copy wkhtmltopdf files from docker-wkhtmltopdf image
 COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
 COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
 COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
+
+RUN mkdir -p /home/node/app/node_modules
+WORKDIR /home/node/app
+COPY ./ /home/node/app/      
 
 RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
