@@ -2212,7 +2212,8 @@ exports.paymentReceiptV2 = async function(req, res){
     const htmlString = await pdfTemplate.getReceiptv3(headerKwintansi);
     
     // Command to execute wkhtmltopdf
-    const wkhtmltopdfCommand = `wkhtmltopdf - - | cat`;
+    // const wkhtmltopdfCommand = `wkhtmltopdf - - | cat`;
+    const wkhtmltopdfCommand = `wkhtmltopdf --orientation=Landscape --page-height=800 --page-height=600`;
 
     // Execute wkhtmltopdf as a child process
     const childProcess = exec(wkhtmltopdfCommand, { maxBuffer: 1024 * 1024, encoding: 'base64' }, (error, stdout, stderr) => {
