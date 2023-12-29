@@ -1,4 +1,6 @@
 FROM node:10.15-alpine
+FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
+FROM openjdk:19-jdk-alpine3.16
 
 RUN mkdir -p /home/node/app/node_modules
 WORKDIR /home/node/app
@@ -32,17 +34,19 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       # nodejs
       # yarn
 
+# Copy wkhtmltopdf files from docker-wkhtmltopdf image
+COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
+COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
+COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
+
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install curl
 RUN apk add curl
 
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-RUN tar xvJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-RUN cp wkhtmltox/bin/wkhtmltopdf /bin/wkhtmltopdf
-RUN cp wkhtmltox/bin/wkhtmltoimage /bin/wkhtmltoimage
-RUN cp wkhtmltox/bin/wkhtmlto* /bin/
+# RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+# RUN tar xvJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 # RUN cp wkhtmltox/bin/wkhtmlto* /usr/bin/
 # RUN cp wkhtmltox/bin/wkhtmlto* /usr/local/bin/
 # RUN mkdir -p /usr/bin/bash/
@@ -54,7 +58,7 @@ RUN cp wkhtmltox/bin/wkhtmlto* /bin/
 RUN apk add lftp
 
 # Compile code
-RUN npm install
+RUN npm install --no-bin-links && npm cache clean --force
 
 # Config Timezone Asia/Jakarta
 RUN apk add tzdata gnupg && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
