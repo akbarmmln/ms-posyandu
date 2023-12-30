@@ -11,8 +11,6 @@
     "test": "jest test/* --testResultsProcessor=\"jest-sonar-reporter\" --coverage --coverageDirectory=coverage --forceExit --notify --detectOpenHandles"
   },
   "engines": {
-    "//": "10.15.3",
-    "//": "6.4.1",
     "node": "18.19.0",
     "npm": "10.2.3"
   },
