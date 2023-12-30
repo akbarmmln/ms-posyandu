@@ -2213,7 +2213,7 @@ exports.paymentReceiptV2 = async function(req, res){
     const htmlString = await pdfTemplate.getReceiptv3(headerKwintansi);
     
     // Command to execute wkhtmltopdf
-    // const wkhtmltopdfCommand = `wkhtmltopdf - - | cat`;
+    // const wkhtmltopdfCommand = `wkhtmltopdf --orientation Landscape --page-height 250mm --page-width 120mm --margin-bottom 10mm --margin-left 10mm --margin-right 10mm --margin-top 10mm --title test1 - - | cat`;
     const wkhtmltopdfCommand = `wkhtmltopdf ${argumentsOptions}`;
 
     // Execute wkhtmltopdf as a child process
