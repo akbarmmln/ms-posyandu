@@ -1,6 +1,6 @@
 FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
 FROM openjdk:19-jdk-alpine3.16
-FROM node:10.15-alpine
+FROM node:lts-alpine3.13
 
 RUN mkdir -p /home/node/app/node_modules
 WORKDIR /home/node/app
