@@ -2106,7 +2106,7 @@ exports.listBucket = async function(req, res){
   }
 }
 
-exports.paymentReceipt = async function(req, res){
+exports.paymentReceiptV1 = async function(req, res){
   try{
     logger.debug(`payload received for paymentReceipt... ${JSON.stringify(req.body)}`)
     let opt = {
