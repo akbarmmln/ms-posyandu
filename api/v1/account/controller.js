@@ -16,11 +16,13 @@ const format = require('../../../config/format');
 const AdrCheckupIbuHamil = require('../../../model/adr_checkup_hamil');
 const rp = require('request-promise');
 const AdrActivity = require('../../../model/adr_activity');
-const FileType = require('file-type');
+// const FileType = require('file-type');
+const FileType = (...args) => import('file-type').then(module => module.default(...args))
 const s3 = require('../../../config/oss').client;
 const AdrFileChunk = require('../../../model/adr_file_chunk');
 const base64 = require('../../../utils/base64');
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(module => module.default(...args))
 const errMsg = require('../../../error/resError');
 const pdfTemplate = require('./templated/html');
 const { exec } = require('child_process');
