@@ -250,3 +250,109 @@ exports.getReceiptv3 = async function (getheaderdetailkuitansi) {
         throw e;
     }
 }
+
+exports.getReceiptv4 = async function (getDetailTransaksiOp) {
+    try {
+        return `
+        <html lang="en">
+        <head>
+        <style>
+        	.demo-bg {
+                      fill-opacity: 0.1;
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                      width: 100%;
+                      height: auto;
+                }
+            * {
+                font-family: sans-serif;
+                font-size: 90%;
+            }
+
+            .container {
+                width: 100%;
+                position: relative;
+                margin-inline: auto;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            td {
+                vertical-align:top;
+            }
+        </style>
+        </head>
+        <body>
+         <img
+    class="demo-bg"
+    src="https://adiraku-bucket-dev.oss-ap-southeast-5.aliyuncs.com/banner/watermark-kuitansi%20teller.png"
+    alt=""
+  >
+        
+        <div class="container">
+            <div style="padding-block:15px; height:140px; border-bottom: 1px solid #000;">
+            <img
+                src="https://res.cloudinary.com/adiraku/image/upload/v1697015650/prod/imageheader/imageheader_2023101116141122.png"
+                alt="" width="40%" style="position:absolute; right:0px;top:0px">
+            <div>
+                <h4 style="margin-top: 32px;width: 100%;">PT. Adira Dinamika Multi Finance tbk</h4>
+                <div style="margin-top: 45px;width: 100%; text-align: center;">
+                <h4>INFORMASI TRANSAKSI PEMBAYARAN MELALUI MERCHANT</h4>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="container">
+            <div style="margin-top:25px;">
+            <table>
+                <tr>
+                <td style="padding-block: 5px;width: 23%;">No Kontrak</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oNoKontrak || ""}</td>
+                <td style="padding-block: 5px;width: 8px;"></td>
+                <td style="padding-block: 5px;width: 23%;">Merchant Pembayaran</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oMerchantPembayaran || ""} </td>
+                </tr>
+                <tr>
+                <td style="padding-block: 5px;width: 23%;">Nama Konsumen</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oNamaKonsumen || ""}</td>
+                <td style="padding-block: 5px;width: 8px;"></td>
+                <td style="padding-block: 5px;width: 23%;">Jumlah Tagihan</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oJumlahTagihan ? await format.rupiahFormat(getDetailTransaksiOp.data.oJumlahTagihan, ".")
+            : ""} </td>
+                </tr>
+                <tr>
+                <td style="padding-block: 5px;width: 23%;">Tgl Tagihan Jt Tempo</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oTglTagihanJatuhTempo ? await
+            format.dateFormatIndo(moment(getDetailTransaksiOp.data.oTglTagihanJatuhTempo).format('YYYY-MM-DD')): ""}</td>
+                <td style="padding-block: 5px;width: 8px;"></td>
+                <td style="padding-block: 5px;width: 23%;">Tanggal Bayar</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oTanggalBayar ? await
+            format.dateFormatIndo(moment(getDetailTransaksiOp.data.oTanggalBayar).format('YYYY-MM-DD')) : ""} </td>
+                </tr>
+                <tr>
+                <td style="padding-block: 5px;width: 23%;">Tgl Tagihan Jt Tempo berikutnya</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oTglNextJatuhTempo ? await
+            format.dateFormatIndo(moment(getDetailTransaksiOp.data.oTglNextJatuhTempo).format('YYYY-MM-DD')) : ""}</td>
+                <td style="padding-block: 5px;width: 8px;"></td>
+                <td style="padding-block: 5px;width: 23%;">No Refferensi</td>
+                <td style="padding-block: 5px;width: 23%;">: ${getDetailTransaksiOp.data.oReferensi || ""} </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+        <div class="container">
+            <p style="font-style: italic; margin-top: 50px; font-size: 8px;">*Dokumen ini bukan merupakan bukti pembayaran<br>
+            Bukti pembayaran yang sah terkait transaksi ini diterbitkan oleh Merchant terkait
+            </p>
+        </div>
+        </body>
+        </html>
+        `;
+    } catch (e) {
+        logger.error(`error creating receipt html ${e}`);
+        throw e;
+    }
+}

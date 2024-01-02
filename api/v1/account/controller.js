@@ -2174,45 +2174,32 @@ exports.paymentReceiptV1 = async function(req, res){
 exports.paymentReceiptV2 = async function(req, res){
   try {
     const argumentsOptions = req.body.argumentsOptions;
-    const headerKwintansi = {
+    let getDetailTransaksiOp = {
       "header": {
         "code": "ESB-00-000",
-        "message": "Request is successfully processed",
+        "message": "Permintaan berhasil diproses",
         "srcCode": "200",
-        "srcMessage": "SUCCESS",
+        "srcMessage": "OK",
         "addInfo": {
-          "requestId": "TEST-201904181418112234",
-          "requestTimestamp": "2019-04-18 11:22:33",
-          "refNo": "20231219113310803211773738865207",
-          "srcTarget": "-"
+          "requestId": "TEST202307111730",
+          "requestTimestamp": "2024-02-01 08:30:00",
+          "refNo": "20230717150729138753184583647875",
+          "srcTarget": "0"
         }
       },
       "data": {
-        "noTrx": "021223R020915",
-        "trxDate": "2023-10-02 00:00:00.0",
-        "contNo": "021221418163",
-        "custName": "SADIMO WARDIDJAH",
-        "colaPlatNo": "-",
-        "jthTempo": "03-Jul-2023",
-        "sisaHutang": "1,609,997.00",
-        "kumulatifDenda": "0",
-        "lokasiPembayaran": "CIREBON-WAHIDIN",
-        "namaPegawai": "TITAH NANDITHA",
-        "terbilang": "Satu Juta Lima Ratus Tiga Puluh Sembilan Ribu Sembilan Ratus Lima Puluh Rupiah",
-        "listBiaya": [
-          {
-            "jumlah": "805000",
-            "keterangan": "001 PENERIMAAN ANGSURAN"
-          },
-          {
-            "jumlah": "734950",
-            "keterangan": "001 PENERIMAAN DENDA"
-          }
-        ],
-        "total": "1539950"
+        "oNoKontrak": "010122122625",
+        "oNamaKonsumen": "FERRY FERRY",
+        "oTglTagihanJatuhTempo": "2023-03-02",
+        "oTglNextJatuhTempo": "2023-04-02",
+        "oMerchantPembayaran": "VA CUSTOMER\n",
+        "oJumlahTagihan": "947000",
+        "oTanggalBayar": "2023-01-17",
+        "oReferensi": "010123D00002",
+        "oMessage": "OK"
       }
     }
-    const htmlString = await pdfTemplate.getReceiptv3(headerKwintansi);
+    const htmlString = await pdfTemplate.getReceiptv4(getDetailTransaksiOp);
     
     // Command to execute wkhtmltopdf
     // const wkhtmltopdfCommand = `wkhtmltopdf --orientation Landscape --page-height 250mm --page-width 120mm --margin-bottom 10mm --margin-left 10mm --margin-right 10mm --margin-top 10mm --title test1 - - | cat`;
