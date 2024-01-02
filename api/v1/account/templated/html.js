@@ -258,7 +258,7 @@ exports.getReceiptv4 = async function (getDetailTransaksiOp) {
         <head>
         <style>
         	.demo-bg {
-                      fill-opacity: 0.1;
+                      opacity: 0.1;
                       position: absolute;
                       left: 0;
                       top: 0;
