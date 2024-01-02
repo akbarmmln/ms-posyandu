@@ -58,8 +58,7 @@ RUN apk add curl
 RUN apk add lftp
 
 # Compile code
-RUN npm install
-# RUN npm install --no-bin-links && npm cache clean --force
+RUN npm install --no-bin-links && npm cache clean --force
 
 # Config Timezone Asia/Jakarta
 RUN apk add tzdata gnupg && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
