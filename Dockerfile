@@ -2,57 +2,81 @@ FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
 FROM openjdk:19-jdk-alpine3.16
 FROM node:18.19.0-alpine
 
+ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser" \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+    
 RUN mkdir -p /home/node/app/node_modules
 WORKDIR /home/node/app
 COPY ./ /home/node/app/      
 
-RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
-    echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
-    echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/main >> /etc/apk/repositories && \
-    apk add chromium@3.10=77.0.3865.120-r0 \
-      nss@3.10 \
-      freetype@3.10 \
-      freetype-dev@3.10 \
-      harfbuzz@3.10 \
-      ca-certificates \
-      ttf-freefont@3.10 \
-      ttf-dejavu \
-      ttf-droid \
-      ttf-liberation \
-      libstdc++ \
-      libx11 \
-      libxrender \
-      libxext \
-      libssl1.1 \
-      fontconfig \
-      && apk add --no-cache --virtual .build-deps \
-      msttcorefonts-installer \
-      && update-ms-fonts \
-      && fc-cache -f \
-      && rm -rf /tmp/* \
-      && apk del .build-deps \
-      && node --version \
-      && npm --version
+RUN set -x \
+    && apk update \
+    && apk upgrade \
+    && apk add --no-cache \
+    udev \
+    ttf-freefont \
+    chromium \
+    wget \
+    openssl \
+    ca-certificates \
+    && update-ca-certificates \
+    nss \
+    freetype \
+    freetype-dev \
+    harfbuzz \
+    ttf-dejavu \
+    ttf-droid \
+    ttf-liberation \
+    libstdc++ \
+    libx11 \
+    libxrender \
+    libxext \
+    libssl1.1 \
+    fontconfig \
+    && apk add --no-cache --virtual .build-deps \
+    msttcorefonts-installer \
+    && update-ms-fonts \
+    && fc-cache -f \
+    && rm -rf /tmp/* \
+    && apk del .build-deps \
+    && node --version \
+    && npm --version
+
+# RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates && \
+#     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
+#     echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/main >> /etc/apk/repositories && \
+#     apk add chromium@3.10=77.0.3865.120-r0 \
+#       nss@3.10 \
+#       freetype@3.10 \
+#       freetype-dev@3.10 \
+#       harfbuzz@3.10 \
+#       ca-certificates \
+#       ttf-freefont@3.10 \
+#       ttf-dejavu \
+#       ttf-droid \
+#       ttf-liberation \
+#       libstdc++ \
+#       libx11 \
+#       libxrender \
+#       libxext \
+#       libssl1.1 \
+#       fontconfig \
+#       && apk add --no-cache --virtual .build-deps \
+#       msttcorefonts-installer \
+#       && update-ms-fonts \
+#       && fc-cache -f \
+#       && rm -rf /tmp/* \
+#       && apk del .build-deps \
+#       && node --version \
+#       && npm --version
 
 # Copy wkhtmltopdf files from docker-wkhtmltopdf image
 COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
 COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
 COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
 # Install curl
 RUN apk add curl
-
-# RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-# RUN tar xvJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-# RUN cp wkhtmltox/bin/wkhtmlto* /usr/bin/
-# RUN cp wkhtmltox/bin/wkhtmlto* /usr/local/bin/
-# RUN mkdir -p /usr/bin/bash/
-# RUN cp -f wkhtmltox/bin/wkhtmlto* /usr/bin/bash/
-# RUN mkdir -p /bin/bash/
-# RUN cp -f wkhtmltox/bin/wkhtmlto* /bin/bash/
 
 #Install LFTP
 RUN apk add lftp
