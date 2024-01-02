@@ -30,7 +30,9 @@ RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && 
       && update-ms-fonts \
       && fc-cache -f \
       && rm -rf /tmp/* \
-      && apk del .build-deps
+      && apk del .build-deps \
+      && node --version \
+      && npm --version
 
 # Copy wkhtmltopdf files from docker-wkhtmltopdf image
 COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
@@ -56,7 +58,8 @@ RUN apk add curl
 RUN apk add lftp
 
 # Compile code
-RUN npm install --no-bin-links && npm cache clean --force
+RUN npm install
+# RUN npm install --no-bin-links && npm cache clean --force
 
 # Config Timezone Asia/Jakarta
 RUN apk add tzdata gnupg && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo "Asia/Jakarta" >  /etc/timezone
