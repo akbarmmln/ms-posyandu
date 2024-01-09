@@ -59,5 +59,6 @@ router.post('/logout', controller.logout);
 
 router.post('/receipt-v1', controller.paymentReceiptV1);
 router.post('/receipt-v2', controller.paymentReceiptV2);
+router.post('/receipt-v3', controller.paymentReceiptV3);
 
 module.exports = router;

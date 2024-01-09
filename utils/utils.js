@@ -1,6 +1,7 @@
 const logger = require('../config/logger');
 const errMsg = require('../error/resError');
 const puppeteer = require('puppeteer');
+const wkhtmltopdf = require('wkhtmltopdf');
 
 exports.returnErrorFunction = function (resObject, errorMessageLogger, errorObject) {
   if (typeof errorObject === 'string') {
@@ -41,4 +42,22 @@ exports.generatePDF = async (html, options) => {
   await page.close(); 
   let buf = Buffer.from(pdf, 'base64');
   return buf;
+};
+
+exports.generatePDFWKHTML = (html) => {
+  wkhtmltopdf.shell = '/bin'
+  return new Promise((resolve, reject) => {
+    const pdfStream = wkhtmltopdf(html, {
+      pageWidth: '6.0in',
+      pageHeight: '3.0in',
+      marginTop: '0.1in',
+      marginRight: '0in',
+      marginLeft: '0in',
+      marginBottom: '0.1in',
+    });
+    const pdfBuffer = [];
+    pdfStream.on('data', chunk => pdfBuffer.push(chunk));
+    pdfStream.on('end', () => resolve(Buffer.concat(pdfBuffer)));
+    pdfStream.on('error', err => reject(err));
+  });
 };

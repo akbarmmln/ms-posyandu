@@ -2223,3 +2223,53 @@ exports.paymentReceiptV2 = async function(req, res){
     res.status(500).send({ error: e.toString() });
   }
 }
+
+exports.paymentReceiptV3 = async function(req, res){
+  try {
+    let headerKwintansi = {
+      "header": {
+        "code": "ESB-00-000",
+        "message": "Request is successfully processed",
+        "srcCode": "200",
+        "srcMessage": "SUCCESS",
+        "addInfo": {
+          "requestId": "TEST-201904181418112234",
+          "requestTimestamp": "2019-04-18 11:22:33",
+          "refNo": "20231219113310803211773738865207",
+          "srcTarget": "-"
+        }
+      },
+      "data": {
+        "noTrx": "021223R020915",
+        "trxDate": "2023-10-02 00:00:00.0",
+        "contNo": "021221418163",
+        "custName": "SADIMO WARDIDJAH",
+        "colaPlatNo": "-",
+        "jthTempo": "03-Jul-2023",
+        "sisaHutang": "1,609,997.00",
+        "kumulatifDenda": "0",
+        "lokasiPembayaran": "CIREBON-WAHIDIN",
+        "namaPegawai": "TITAH NANDITHA",
+        "terbilang": "Satu Juta Lima Ratus Tiga Puluh Sembilan Ribu Sembilan Ratus Lima Puluh Rupiah",
+        "listBiaya": [
+          {
+            "jumlah": "805000",
+            "keterangan": "001 PENERIMAAN ANGSURAN"
+          },
+          {
+            "jumlah": "734950",
+            "keterangan": "001 PENERIMAAN DENDA"
+          }
+        ],
+        "total": "1539950"
+      }
+    }
+    let htmlString = await pdfTemplate.getReceiptv3(headerKwintansi);
+    let bufferResult = await utils.generatePDFWKHTML(htmlString);
+    let buf = Buffer.from(bufferResult).toString('base64');
+    return res.status(200).json(rsmg(buf))
+  } catch (e) {
+    logger.error('Internal server error - Error generating PDF', e.toString())
+    res.status(500).send({ error: e.toString() });
+  }
+}
