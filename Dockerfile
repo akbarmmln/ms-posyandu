@@ -89,9 +89,9 @@ RUN apk add tzdata gnupg && cp /usr/share/zoneinfo/Asia/Jakarta /etc/localtime &
 
 COPY . .
 
-# RUN chown -R node:node /home/node/*
+RUN chown -R node:node /bin/*
 
-USER root
+USER node
 EXPOSE 8099
 
 CMD ["npm", "start"]
