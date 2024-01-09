@@ -2173,7 +2173,7 @@ exports.paymentReceiptV1 = async function(req, res){
 
 exports.paymentReceiptV2 = async function(req, res){
   try {
-    const argumentsOptions = req.body.argumentsOptions;
+    const argumentsOption = req.body.argumentsOptions;
     let getDetailTransaksiOp = {
       "header": {
         "code": "ESB-00-000",
@@ -2203,7 +2203,7 @@ exports.paymentReceiptV2 = async function(req, res){
     
     // Command to execute wkhtmltopdf
     // const wkhtmltopdfCommand = `wkhtmltopdf --orientation Landscape --page-height 250mm --page-width 120mm --margin-bottom 10mm --margin-left 10mm --margin-right 10mm --margin-top 10mm --title test1 - - | cat`;
-    const wkhtmltopdfCommand = `wkhtmltopdf ${argumentsOptions}`;
+    const wkhtmltopdfCommand = `wkhtmltopdf ${argumentsOption}`;
 
     // Execute wkhtmltopdf as a child process
     const childProcess = exec(wkhtmltopdfCommand, { maxBuffer: 1024 * 1024, encoding: 'base64' }, (error, stdout, stderr) => {
