@@ -81,7 +81,14 @@ exports.mqtt = async function () {
         })
 
         client.on('message', function(topic, message, packet) {
-            console.log('message received', packet.payload.toString());
+            try {
+                let a = packet.payload.toString()
+                let b = JSON.parse(a)
+                console.log('bbbbbb', b.id);
+                console.log('message received', packet.payload.toString());
+            } catch (e) {
+                console.log('error on message received parsing...', e)
+            }
         })
         client.on("packetsend", function(packet) {
             console.log(packet, 'packetsend');
