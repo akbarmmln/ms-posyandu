@@ -8,6 +8,6 @@ const mqttConfig = require('./api/v1/healthcek/controller');
 let PORT = process.env.PORT
 
 const server = app.listen(PORT, () => logger.debug(`API Server started. Listening on port:${PORT}`));
-mqttConfig.mqtt();
+// mqttConfig.mqtt();
 
 module.exports = server;

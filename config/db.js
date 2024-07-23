@@ -39,12 +39,20 @@ const operatorsAliases = {
   $values: Op.values,
   $col: Op.col
 };
+const privateKey = process.env.SSL_SEQUELIZE;
 
 const sequelize = new Sequelize(settings.dbname, settings.username, settings.password, {
   operatorsAliases,
   host: settings.hostname,
   port: settings.port,
   dialect: 'mysql',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: true,
+      ca: privateKey.replace(/\\n/gm, '\n')
+    },
+  },
   pool: {
     max: 5,
     min: 0,

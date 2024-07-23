@@ -19,5 +19,6 @@ module.exports = {
         username: process.env.USER_MAIL,
         password: process.env.PASS_MAIL,
         port: process.env.PORT_MAIL
-    }
+    },
+    secret: process.env.SECRET
 };
